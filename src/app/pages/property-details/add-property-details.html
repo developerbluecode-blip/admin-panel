@@ -1,0 +1,71 @@
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Property</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form [formGroup]="form">
+
+                        <div class="card-body">
+                             <div class="form-group mb-3">
+                                <label>Property Type</label>
+                                <ng-select formControlName="propertyTypeId" [items]="propertyType" bindLabel="propertyTypeNameEn"
+                                    bindValue="propertyTypeId" placeholder="Select Property Type">
+                                </ng-select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Property Name(EN)</label>
+                                <input matInput class="form-control mb-3" placeholder="Property Name(EN)" required>
+                            </div>
+                            <div class="form-group mb-3" align="right">
+                                <label>Property Name(AR)</label>
+                                <input matInput class="form-control mb-3" placeholder="Property Name(AR)" dir="rtl"
+                                    required>
+                            </div>
+
+                            <!-- Country -->
+                            <div class="form-group mb-3">
+                                <label>Country</label>
+                                <ng-select formControlName="countryId" [items]="countries" bindLabel="countryNameEn"
+                                    bindValue="countryId" placeholder="Select Country">
+                                </ng-select>
+                            </div>
+                            <!-- Governorate -->
+                            <div class="form-group mb-3" *ngIf="governarates.length">
+                                <label>Governarate</label>
+                                <ng-select formControlName="governorateId" [items]="governarates"
+                                    bindLabel="governarateNameEn" bindValue="governarateId"
+                                    placeholder="Select Governorate">
+                                </ng-select>
+                            </div>
+
+                            <!-- City -->
+                            <div class="form-group mb-3" *ngIf="citys.length">
+                                <label>City</label>
+                                <ng-select formControlName="cityId" [items]="citys" bindLabel="cityNameEn"
+                                    bindValue="cityId" placeholder="Select City">
+                                </ng-select>
+                            </div>
+
+                        </div>
+                        <div class="card-footer" align="right">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

@@ -1,0 +1,25 @@
+export interface LoginResponse {
+  token: string,
+    user: {
+        userId: 1,
+        fullNameEn: string,
+        fullNameAr: string,
+        mobileNumber: number,
+        emailAddress: string,
+        userPassword: string,
+        userAddressEn: string,
+        userAddressAr: string,
+        createDate: string,
+        createdBy: number,
+        updateDate: Date,
+        updatedBy: Date,
+        userTypeId: number,
+        isBlock: boolean,
+        isActive: boolean,
+        fcmKey: string,
+        imageName: string,
+        gender: number,
+        note: string,
+        civilId: number
+    }
+}

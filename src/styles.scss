@@ -1,0 +1,111 @@
+/* You can add global styles to this file, and also import other style files */
+.user-menu {
+  position: relative;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1050;
+  min-width: 180px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Fix AdminLTE dropdown overflow */
+.app-header,
+.navbar {
+  overflow: visible !important;
+}
+
+/* Ensure dropdown is on top */
+.dropdown-menu {
+  z-index: 1055 !important;
+}
+
+
+
+.table-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+  h2 {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.search-box {
+  width: 250px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+.table-container {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: 600;
+  background: #f5f7fa;
+}
+
+tr.mat-row:hover {
+  background: #f0f4ff;
+  cursor: pointer;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #e3f2fd;
+  color: #1976d2;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+}
+
+
+.success-snackbar {
+  background: #4caf50 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.fail-snackbar {
+  background: #d43c0e !important;
+  color: white !important;
+  font-weight: 600;
+}
+

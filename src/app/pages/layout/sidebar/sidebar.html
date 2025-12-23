@@ -1,0 +1,264 @@
+<aside class="app-sidebar bg-body-secondary shadow elevation-4" data-bs-theme="dark">
+        <!--begin::Sidebar Brand-->
+        <div class="sidebar-brand">
+          <!--begin::Brand Link-->
+          <a href="#" class="brand-link">
+            <!--begin::Brand Text-->
+            <span class="brand-text fw-light">Realestate</span>
+            <!--end::Brand Text-->
+          </a>
+          <!--end::Brand Link-->
+        </div>
+        <!--end::Sidebar Brand-->
+        <!--begin::Sidebar Wrapper-->
+        <div class="sidebar-wrapper">
+          <nav class="mt-2">
+            <!--begin::Sidebar Menu-->
+            <ul
+              class="nav sidebar-menu flex-column"
+              data-lte-toggle="treeview"
+              role="navigation"
+              aria-label="Main navigation"
+              data-accordion="false"
+              id="navigation"
+            >
+              
+            <li class="nav-item">
+  <a routerLink="/dashboard"
+     routerLinkActive="active"
+     class="nav-link">
+    <i class="nav-icon bi bi-palette"></i>
+    <p>Dashboard</p>
+  </a>
+</li>
+
+<li
+  class="nav-item"
+  [class.menu-open]="openMenu === 'dashboard'"
+>
+  <a
+    href="javascript:void(0)"
+    class="nav-link"
+    (click)="toggle('dashboard')"
+  >
+    <i class="nav-icon bi bi-people"></i>
+    <p>
+      Users
+      <i class="nav-arrow bi bi-chevron-right"></i>
+    </p>
+  </a>
+
+  <!-- SUB MENU -->
+  <ul class="nav nav-treeview" *ngIf="openMenu === 'dashboard'">
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Admin</p>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard/v2"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Landlord</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard/v2"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Tenant</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li
+  class="nav-item"
+  [class.menu-open]="openMenu === 'Location'"
+>
+  <a
+    href="javascript:void(0)"
+    class="nav-link"
+    (click)="toggle('Location')"
+  >
+    <i class="nav-icon bi bi-geo-alt-fill"></i>
+    <p>
+      Location
+      <i class="nav-arrow bi bi-chevron-right"></i>
+    </p>
+  </a>
+
+  <!-- SUB MENU -->
+  <ul class="nav nav-treeview" *ngIf="openMenu === 'Location'">
+    <li class="nav-item">
+      <a
+        routerLink="/country"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Country</p>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        routerLink="/governarate"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Governarate</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/city"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>City</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li
+  class="nav-item"
+  [class.menu-open]="openMenu === 'Property'"
+>
+  <a
+    href="javascript:void(0)"
+    class="nav-link"
+    (click)="toggle('Property')"
+  >
+    <i class="nav-icon bi bi-gear"></i>
+    <p>
+      Property
+      <i class="nav-arrow bi bi-chevron-right"></i>
+    </p>
+  </a>
+
+  <!-- SUB MENU -->
+  <ul class="nav nav-treeview" *ngIf="openMenu === 'Property'">
+    <li class="nav-item">
+      <a
+        routerLink="/property-details"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Property List</p>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        routerLink="/property-care-taker"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Property Care Taker</p>
+      </a>
+    </li>
+     <li class="nav-item">
+      <a
+        routerLink="/property-facility"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Property Facility</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/property-facility-type"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Property Facility Type</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li
+  class="nav-item"
+  [class.menu-open]="openMenu === 'Settings'"
+>
+  <a
+    href="javascript:void(0)"
+    class="nav-link"
+    (click)="toggle('Settings')"
+  >
+    <i class="nav-icon bi bi-gear"></i>
+    <p>
+      Settings
+      <i class="nav-arrow bi bi-chevron-right"></i>
+    </p>
+  </a>
+
+  <!-- SUB MENU -->
+  <ul class="nav nav-treeview" *ngIf="openMenu === 'Settings'">
+    <li class="nav-item">
+      <a
+        routerLink="/user-type"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>User Type</p>
+      </a>
+    </li>
+
+     <li class="nav-item">
+      <a
+        routerLink="/payment-mode"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Payment Mode</p>
+      </a>
+    </li>
+     <li class="nav-item">
+      <a
+        routerLink="/payment-status"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Payment Status</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/property-type"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Property Type</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/property-care-type"
+        class="nav-link"
+      >
+        <i class="nav-icon bi bi-circle"></i>
+        <p>Property Care Type</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+            </ul>
+            <!--end::Sidebar Menu-->
+          </nav>
+        </div>
+        <!--end::Sidebar Wrapper-->
+      </aside>
+      <!--end::Sidebar-->
