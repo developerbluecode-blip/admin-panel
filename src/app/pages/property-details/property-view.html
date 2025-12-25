@@ -1,0 +1,418 @@
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- ./row -->
+        <div class="row">
+            <div class="col-12 pt-2">
+                <h4> </h4>
+            </div>
+        </div>
+        <!-- ./row -->
+         <div class="row"> 
+                        <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Property Details</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                
+                <table mat-table [dataSource]="propertyViewsDataSource" class="mat-elevation-z8">
+
+  <!-- Property ID -->
+  <ng-container matColumnDef="propertyId">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let row">{{ row.propertyId }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyNameEn">
+    <th mat-header-cell *matHeaderCellDef>Name (EN)</th>
+    <td mat-cell *matCellDef="let row">{{ row.propertyNameEn }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyNameAr">
+    <th mat-header-cell *matHeaderCellDef>Name (AR)</th>
+    <td mat-cell *matCellDef="let row">{{ row.propertyNameAr }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyTypeId">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell *matCellDef="let row">{{ getProTypeName(row.propertyTypeId) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyOwnerId">
+    <th mat-header-cell *matHeaderCellDef>Owner</th>
+    <td mat-cell *matCellDef="let row">{{ getUserName(row.propertyOwnerId) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="countryId">
+    <th mat-header-cell *matHeaderCellDef>Country</th>
+    <td mat-cell *matCellDef="let row">{{ getCountryName(row.countryId)}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="cityId">
+    <th mat-header-cell *matHeaderCellDef>City</th>
+    <td mat-cell *matCellDef="let row">{{ getCityName(row.cityId) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyAddress">
+    <th mat-header-cell *matHeaderCellDef>Address</th>
+    <td mat-cell *matCellDef="let row">{{ row.propertyAddress }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="createDate">
+    <th mat-header-cell *matHeaderCellDef>Created</th>
+    <td mat-cell *matCellDef="let row">{{ row.createDate | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="createBy">
+    <th mat-header-cell *matHeaderCellDef>Created By</th>
+    <td mat-cell *matCellDef="let row">{{ getUserName(row.createBy) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="updateDate">
+    <th mat-header-cell *matHeaderCellDef>Updated</th>
+    <td mat-cell *matCellDef="let row">{{ row.updateDate | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="updateBy">
+    <th mat-header-cell *matHeaderCellDef>Updated By</th>
+    <td mat-cell *matCellDef="let row">{{ getUserName(row.updateBy) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="latitude">
+    <th mat-header-cell *matHeaderCellDef>Lat</th>
+    <td mat-cell *matCellDef="let row">{{ row.latitude }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="longitude">
+    <th mat-header-cell *matHeaderCellDef>Lng</th>
+    <td mat-cell *matCellDef="let row">{{ row.longitude }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="totalRoom">
+    <th mat-header-cell *matHeaderCellDef>Rooms</th>
+    <td mat-cell *matCellDef="let row">{{ row.totalRoom }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="rentAmount">
+    <th mat-header-cell *matHeaderCellDef>Rent</th>
+    <td mat-cell *matCellDef="let row"> KD {{ row.rentAmount }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyDescriptionEn">
+    <th mat-header-cell *matHeaderCellDef>Description (EN)</th>
+    <td mat-cell *matCellDef="let row">{{ row.propertyDescriptionEn }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="propertyDescriptionAr">
+    <th mat-header-cell *matHeaderCellDef>Description (AR)</th>
+    <td mat-cell *matCellDef="let row">{{ row.propertyDescriptionAr }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="isActive">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let row">
+      <span [class.text-success]="row.isActive" [class.text-danger]="!row.isActive">
+        {{ row.isActive ? 'Active' : 'Inactive' }}
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="isBlock">
+    <th mat-header-cell *matHeaderCellDef>Blocked</th>
+    <td mat-cell *matCellDef="let row">
+      {{ row.isBlock ? 'Yes' : 'No' }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="propertyViewsColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: propertyViewsColumns;"></tr>
+
+</table>
+
+
+
+
+              </div>
+             
+            </div>
+            <!-- /.card -->
+
+            
+          </div>
+
+                       </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-12 pt-2">
+
+                <ul class="nav nav-tabs border-secondary-subtle">
+
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="activeTab === 'images'" (click)="activeTab = 'images'">
+                            Images
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="activeTab === 'contract'" (click)="activeTab = 'contract'">
+                            Contract
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-3">
+
+                    <div *ngIf="activeTab === 'images'">
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 pt-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Property Images List</h3>
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body">
+                                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6"></div>
+                                                        <div class="col-sm-12 col-md-6"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-12" align="end">
+                                                                <!-- <button class="btn btn-primary btn-lg m-2" (click)="openAddUserType()">+ Add
+                                                                    New </button> -->
+                                                                <mat-form-field appearance="outline" class="search-box">
+                                                                    <mat-label>Search</mat-label>
+                                                                    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+                                                                    <mat-icon matSuffix>search</mat-icon>
+                                                                </mat-form-field>
+                                                            </div>
+                    
+                                                            <table id="example2" class="table table-bordered table-hover " mat-table
+                                                                [dataSource]="propertyImagesDataSource">
+                    
+                                                                <ng-container matColumnDef="imageId">
+                                                                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                                                                    <td mat-cell *matCellDef="let row">{{ row.imageId }}</td>
+                                                                </ng-container>
+                    
+                    
+                    
+                                                                <!-- Name EN -->
+                                                                <ng-container matColumnDef="imageName">
+                                                                    <th mat-header-cell *matHeaderCellDef>Image</th>
+                                                                    <td mat-cell *matCellDef="let row">
+                                                                        <img [src]="getImageUrl(row.imageName)" alt="Property Image" class="country-img" />
+                                                                    </td>
+                                                                </ng-container>
+                    
+                                                                <!-- Name AR -->
+                                                                <ng-container matColumnDef="createDate">
+                                                                    <th mat-header-cell *matHeaderCellDef>Create Date</th>
+                                                                    <td mat-cell *matCellDef="let row">{{ row.createDate}}</td>
+                                                                </ng-container>
+
+                                                                 <!-- Name AR -->
+                                                                <ng-container matColumnDef="createdBy">
+                                                                    <th mat-header-cell *matHeaderCellDef>Create By</th>
+                                                                    <td mat-cell *matCellDef="let row">{{ getUserName(row.createdBy) }}</td>
+                                                                </ng-container>
+                    
+                                                                <!-- Status -->
+                                                                <ng-container matColumnDef="isActive">
+                                                                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                                                                    <td mat-cell *matCellDef="let row">
+                                                                        <span class="badge" [class.bg-success]="row.isActive"
+                                                                            [class.bg-danger]="!row.isActive">
+                                                                            {{ row.isActive ? 'Active' : 'isActive' }}
+                                                                        </span>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="actions">
+                                                                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                                                                    <td mat-cell *matCellDef="let row">
+                                                                        <!-- <button mat-icon-button color="primary"
+                                                                            (click)="openEditUserType(row)">
+                                                                            <mat-icon>edit</mat-icon>
+                                                                        </button> -->
+                    
+                                                                    </td>
+                                                                </ng-container>
+                    
+                                                                <tr mat-header-row *matHeaderRowDef="propertyImagesColumns"></tr>
+                                                                <tr mat-row *matRowDef="let row; columns: propertyImagesColumns;"></tr>
+                                                            </table>
+                    
+                                                            <mat-paginator #imagesPaginator [length]="propertyImagesDataSource.filteredData.length" [pageSize]="5"
+                                                                [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                                                            </mat-paginator>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                    
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.container-fluid -->
+                        </section>
+                    
+                    </div>
+
+                    <div *ngIf="activeTab === 'contract'">
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 pt-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Contract List</h3>
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body">
+                                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6"></div>
+                                                        <div class="col-sm-12 col-md-6"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="col-sm-12" align="end">
+                                                                <button class="btn btn-primary btn-lg m-2" (click)="openAddContract()">+ Add
+                                                                    New </button> 
+                                                                <mat-form-field appearance="outline" class="search-box">
+                                                                    <mat-label>Search</mat-label>
+                                                                    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+                                                                    <mat-icon matSuffix>search</mat-icon>
+                                                                </mat-form-field>
+                                                            </div>
+                    
+                                                        <table mat-table [dataSource]="propertyContractDataSource" class="table table-bordered table-hover">
+                                                        
+                                                            <!-- Contract ID -->
+                                                            <ng-container matColumnDef="propertyContractId">
+                                                                <th mat-header-cell *matHeaderCellDef> Contract ID </th>
+                                                                <td mat-cell *matCellDef="let row"> {{ row.propertyContractId }} </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Start Date -->
+                                                            <ng-container matColumnDef="startDate">
+                                                                <th mat-header-cell *matHeaderCellDef> Start Date </th>
+                                                                <td mat-cell *matCellDef="let row">
+                                                                    {{ row.startDate | date:'dd-MM-yyyy' }}
+                                                                </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- End Date -->
+                                                            <ng-container matColumnDef="endDate">
+                                                                <th mat-header-cell *matHeaderCellDef> End Date </th>
+                                                                <td mat-cell *matCellDef="let row">
+                                                                    {{ row.endDate | date:'dd-MM-yyyy' }}
+                                                                </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Commission -->
+                                                            <ng-container matColumnDef="commision">
+                                                                <th mat-header-cell *matHeaderCellDef> Commission (%) </th>
+                                                                <td mat-cell *matCellDef="let row">
+                                                                    {{ row.commision }}
+                                                                </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Create Date -->
+                                                            <ng-container matColumnDef="createDate">
+                                                                <th mat-header-cell *matHeaderCellDef> Created On </th>
+                                                                <td mat-cell *matCellDef="let row">
+                                                                    {{ row.createDate | date:'dd-MM-yyyy' }}
+                                                                </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Created By -->
+                                                            <ng-container matColumnDef="createdBy">
+                                                                <th mat-header-cell *matHeaderCellDef> Created By </th>
+                                                                <td mat-cell *matCellDef="let row"> {{ getUserName(row.createdBy) }} </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Update Date -->
+                                                            <ng-container matColumnDef="updateDate">
+                                                                <th mat-header-cell *matHeaderCellDef> Updated On </th>
+                                                                <td mat-cell *matCellDef="let row">
+                                                                    {{ row.updateDate | date:'dd-MM-yyyy' }}
+                                                                </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Updated By -->
+                                                            <ng-container matColumnDef="updateBy">
+                                                                <th mat-header-cell *matHeaderCellDef> Updated By </th>
+                                                                <td mat-cell *matCellDef="let row"> {{ getUserName(row.updateBy) }} </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Status -->
+                                                            <ng-container matColumnDef="isActive">
+                                                                <th mat-header-cell *matHeaderCellDef> Status </th>
+                                                                <td mat-cell *matCellDef="let row">
+                                                                    <span class="badge" [class.bg-success]="row.isActive" [class.bg-danger]="!row.isActive">
+                                                                        {{ row.isActive ? 'Active' : 'Inactive' }}
+                                                                    </span>
+                                                                </td>
+                                                            </ng-container>
+                                                        
+                                                            <!-- Actions -->
+                                                           <ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef> Actions </th>
+  <td mat-cell *matCellDef="let row">
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="openEditContract(row)">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </td>
+</ng-container>
+                                                        
+                                                            <!-- Header & Row -->
+                                                            <tr mat-header-row *matHeaderRowDef="propertyContractColumns"></tr>
+                                                            <tr mat-row *matRowDef="let row; columns: propertyContractColumns;"></tr>
+                                                        
+                                                        </table>
+                                                        
+                                                        </div>
+                                                        
+                                                        <mat-paginator #contractPaginator [length]="propertyContractDataSource.filteredData.length" [pageSize]="5"
+                                                            [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                                                        </mat-paginator>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                    
+                                                </div>
+                                                <!-- /.col -->
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </section>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!-- /.card -->
+    </div>
+    <!-- /.container-fluid -->
+</section>

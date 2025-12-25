@@ -6,58 +6,156 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Property</h3>
+                        <h3 class="card-title">{{ isEditMode ? 'Edit Property' : 'Add Property' }}</h3>
                     </div>
                     <!-- /.card-header -->
+                     <div class="container">
+<div class="row">
+                    
                     <!-- form start -->
-                    <form [formGroup]="form">
+                   <form *ngIf="form" [formGroup]="form" class="row g-3" (ngSubmit)="onSave()">
 
-                        <div class="card-body">
-                             <div class="form-group mb-3">
-                                <label>Property Type</label>
-                                <ng-select formControlName="propertyTypeId" [items]="propertyType" bindLabel="propertyTypeNameEn"
-                                    bindValue="propertyTypeId" placeholder="Select Property Type">
-                                </ng-select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>Property Name(EN)</label>
-                                <input matInput class="form-control mb-3" placeholder="Property Name(EN)" required>
-                            </div>
-                            <div class="form-group mb-3" align="right">
-                                <label>Property Name(AR)</label>
-                                <input matInput class="form-control mb-3" placeholder="Property Name(AR)" dir="rtl"
-                                    required>
-                            </div>
+  <!-- Property Name EN -->
+  <div class="col-md-6">
+    <label class="form-label">Property Name (EN)</label>
+    <input type="text" class="form-control" formControlName="propertyNameEn" placeholder="Property Name (EN)" required>
+  </div>
 
-                            <!-- Country -->
-                            <div class="form-group mb-3">
-                                <label>Country</label>
-                                <ng-select formControlName="countryId" [items]="countries" bindLabel="countryNameEn"
-                                    bindValue="countryId" placeholder="Select Country">
-                                </ng-select>
-                            </div>
-                            <!-- Governorate -->
-                            <div class="form-group mb-3" *ngIf="governarates.length">
-                                <label>Governarate</label>
-                                <ng-select formControlName="governorateId" [items]="governarates"
-                                    bindLabel="governarateNameEn" bindValue="governarateId"
-                                    placeholder="Select Governorate">
-                                </ng-select>
-                            </div>
+  <!-- Property Name AR -->
+  <div class="col-md-6" align="right">
+    <label class="form-label">Property Name (AR)</label>
+    <input type="text" class="form-control" formControlName="propertyNameAr"  placeholder="Property Name (AR)" dir="rtl" required>
+  </div>
 
-                            <!-- City -->
-                            <div class="form-group mb-3" *ngIf="citys.length">
-                                <label>City</label>
-                                <ng-select formControlName="cityId" [items]="citys" bindLabel="cityNameEn"
-                                    bindValue="cityId" placeholder="Select City">
-                                </ng-select>
-                            </div>
+  <div class="col-md-6">
+    <label class="form-label">Property Type</label>
+    <ng-select
+      formControlName="propertyTypeId"
+      [items]="propertyTypes"
+      bindLabel="propertyTypeNameEn"
+      bindValue="propertyTypeId"
+      placeholder="Select Property Type">
+    </ng-select>
+  </div>
 
-                        </div>
-                        <div class="card-footer" align="right">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
+  <div class="col-md-6">
+    <label class="form-label">Property Owner</label>
+    <ng-select
+      formControlName="propertyOwnerId"
+      [items]="propertyOwners"
+      bindLabel="fullNameEn"
+      bindValue="userId"
+      placeholder="Select Property Owner">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Country</label>
+    <ng-select
+      formControlName="countryId"
+      [items]="countries"
+      bindLabel="countryNameEn"
+      bindValue="countryId"
+      placeholder="Select Country">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Governorate</label>
+    <ng-select
+      formControlName="governorateId"
+      [items]="governarates"
+      bindLabel="governarateNameEn"
+      bindValue="governarateId"
+      placeholder="Select Governorate">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">City</label>
+    <ng-select
+      formControlName="cityId"
+      [items]="citys"
+      bindLabel="cityNameEn"
+      bindValue="cityId"
+      placeholder="Select City">
+    </ng-select>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Latitude</label>
+    <input type="text" class="form-control" formControlName="latitude"  placeholder="Latitude" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Longitude</label>
+    <input type="text" class="form-control" formControlName="longitude"  placeholder="Longitude" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Total Room</label>
+    <input type="number" class="form-control" formControlName="totalRoom"  placeholder="Total Room" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Rent Amount</label>
+    <input type="number" class="form-control" formControlName="rentAmount"  placeholder="Rent Amount" required>
+  </div>
+
+  <div class="col-md-6">
+  <label class="form-label">Property Description En</label>
+  <textarea
+    class="form-control"
+    formControlName="propertyDescriptionEn"
+    rows="4"
+    placeholder="Enter full Property Description En">
+  </textarea>
+</div>
+<div class="col-md-6">
+  <label class="form-label">Property Description Ar</label>
+  <textarea
+    class="form-control"
+    formControlName="propertyDescriptionAr"
+    rows="4"
+    placeholder="Enter full Property Description Ar">
+  </textarea>
+</div>
+
+
+  <div class="col-12">
+  <label class="form-label">Address Description</label>
+  <textarea
+    class="form-control"
+    formControlName="propertyAddress"
+    rows="4"
+    placeholder="Enter full address details (street, block, landmark, etc.)">
+  </textarea>
+</div>
+
+ <div class="col-sm-4 mt-2">
+          <mat-slide-toggle formControlName="isActive">
+            Active
+          </mat-slide-toggle>
+        </div>
+         <div class="col-sm-4 mt-2">
+          <mat-slide-toggle formControlName="isBlock">
+            Block
+          </mat-slide-toggle>
+        </div>
+        <div  class="col-sm-4 mt-2" style="display: none;">
+            <input type="file" class="form-control" >
+        </div>
+ 
+  <div class="p-2" align="right">
+    <button type="button" class="btn btn-danger me-2" [routerLink]="['/property-details']">
+      Cancel
+    </button>
+
+    <button type="submit" class="btn btn-primary">
+      {{ isEditMode ? 'Update' : 'Save' }}
+    </button>
+                </div>
+                </form>
+
+ </div></div>
 
                 </div>
                 <!-- /.card -->

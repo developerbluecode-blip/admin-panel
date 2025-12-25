@@ -35,7 +35,8 @@
               "node_modules/admin-lte/dist/css/adminlte.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

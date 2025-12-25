@@ -78,7 +78,7 @@ tr.mat-row:hover {
   padding: 4px 12px;
   border-radius: 20px;
   background: #e3f2fd;
-  color: #1976d2;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 600;
 }
@@ -109,3 +109,20 @@ tr.mat-row:hover {
   font-weight: 600;
 }
 
+select.form-select {
+  width: 100%;
+}
+
+
+select {
+  width: auto;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+.nav-tabs .nav-link:hover {
+  cursor: pointer;
+  background-color: #f4f6f9;
+}

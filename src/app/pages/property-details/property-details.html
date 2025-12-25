@@ -66,10 +66,16 @@
   <td mat-cell *matCellDef="let row">
     <button
       mat-icon-button
-      color="primary">
+      color="primary"
+      (click)="onEdit(row.propertyId)">
       <mat-icon>edit</mat-icon>
     </button>
-
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="onView(row.propertyId)">
+      <mat-icon>info</mat-icon>
+    </button>
   </td>
 </ng-container>
 

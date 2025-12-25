@@ -3,6 +3,8 @@ import { Layout } from './pages/layout/layout';
 import { DashboardComponent } from './pages/dashboard/dashboard';
 import { LoginComponent } from './pages/login/login';
 import { authGuard } from './core/guards/auth-guard';
+import { AddProperty } from './pages/property-details/add-property-details';
+import { PropertyView } from './pages/property-details/property-view';
 
 export const routes: Routes = [
 
@@ -30,7 +32,11 @@ export const routes: Routes = [
       { path: 'property-details', loadComponent: () => import('./pages/property-details/property-details').then(m => m.PropertyDetails) },
       { path: 'add-property', loadComponent: () => import('./pages/property-details/add-property-details').then(m => m.AddProperty) },
       { path: 'property-facility-type', loadComponent: () => import('./pages/property-facility-type/property-facility-type').then(m => m.PropertyFacilityType) },
-      { path: 'property-facility', loadComponent: () => import('./pages/property-facility/property-facility').then(m => m.PropertyFacility) }
+      { path: 'property-facility', loadComponent: () => import('./pages/property-facility/property-facility').then(m => m.PropertyFacility) },
+      { path: 'add-property',component: AddProperty },
+      { path: 'add-property/:id', component: AddProperty },
+      { path: 'property-view/:id',component: PropertyView }
+
     ]
   },
 

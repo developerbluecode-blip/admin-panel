@@ -53,12 +53,12 @@ export class PropertyDetails
   constructor(
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
-    private PropertyDetailsService: PropertyDetailsService,
+    private propertyDetailsService: PropertyDetailsService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.loadPropertyDetailss();
+    this.loadPropertyDetails();
   }
 
   ngAfterViewInit() {
@@ -72,13 +72,19 @@ export class PropertyDetails
     this.dataSource.paginator?.firstPage();
   }
 
-  loadPropertyDetailss() {
-    this.PropertyDetailsService.getPropertyDetailss().subscribe({
+  loadPropertyDetails() {
+    this.propertyDetailsService.getPropertyDetails().subscribe({
       next: res => this.dataSource.data = res.data,
       error: err => console.error('Failed to load property Facility types', err)
     });
   }
 
-  
+  onEdit(id: number) {
+  this.router.navigate(['/add-property', id]);
+}
+
+ onView(id: number) {
+  this.router.navigate(['/property-view', id]);
+ }
 
 }

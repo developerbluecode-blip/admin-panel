@@ -1,4 +1,4 @@
-export interface PropertyImage {
+export interface PropertyImages {
   imageId: number;
 
   propertyId: number | null;
