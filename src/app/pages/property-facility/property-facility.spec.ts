@@ -5,42 +5,44 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environment';
 import { Result } from '../../models/Result';
 import { PropertyFacilitys } from '../../models/PropertyFacility';
+import { PropertyFacilityWithType } from '../../models/PropertyFacilityWithType';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PropertyFacilityService {
 
   private apiUrl =
-    environment.apiBaseUrl + '/PropertyFacility/PropertyFacilityList';
+    environment.apiBaseUrl + '/PropertyFacilityWithType/PropertyFacilityWithTypeList';
 
   constructor(private http: HttpClient) {}
 
-  getPropertyFacilitys(): Observable<Result<PropertyFacilitys[]>> {
-    return this.http.get<Result<PropertyFacilitys[]>>(this.apiUrl);
+  getPropertyFacilitys(): Observable<Result<PropertyFacilityWithType[]>> {
+    return this.http.get<Result<PropertyFacilityWithType[]>>(this.apiUrl);
   }
 
   createPropertyFacility(
     formData: FormData
-  ): Observable<Result<PropertyFacilitys>> {
-    return this.http.post<Result<PropertyFacilitys>>(
-      `${environment.apiBaseUrl}/PropertyFacility/CreatePropertyFacility`,
+  ): Observable<Result<PropertyFacilityWithType>> {
+    return this.http.post<Result<PropertyFacilityWithType>>(
+      `${environment.apiBaseUrl}/PropertyFacilityWithType/CreatePropertyFacilityWithType`,
       formData
     );
   }
 
   updatePropertyFacility(
     formData: FormData
-  ): Observable<Result<PropertyFacilitys>> {
-    return this.http.put<Result<PropertyFacilitys>>(
-      `${environment.apiBaseUrl}/PropertyFacility/UpdatePropertyFacility`,
+  ): Observable<Result<PropertyFacilityWithType>> {
+    return this.http.put<Result<PropertyFacilityWithType>>(
+      `${environment.apiBaseUrl}/PropertyFacilityWithType/UpdatePropertyFacilityWithType`,
       formData
     );
   }
 
   deletePropertyFacility(id: number): Observable<Result<boolean>> {
     return this.http.delete<Result<boolean>>(
-      `${environment.apiBaseUrl}/PropertyFacility/PropertyFacilityDelete?id=${id}`
+      `${environment.apiBaseUrl}/PropertyFacilityWithType/PropertyFacilityWithTypeDelete?id=${id}`
     );
   }
 }

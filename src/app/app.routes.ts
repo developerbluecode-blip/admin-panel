@@ -19,6 +19,9 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user-type', loadComponent: () => import('./pages/user-type/user-type').then(m => m.UserType) },
+      { path: 'admin-list', loadComponent: () => import('./pages/admin-list/admin-list').then(m => m.AdminList) },
+      { path: 'landlord-list', loadComponent: () => import('./pages/landlord-list/landlord-list').then(m => m.LandlordList) },
+      { path: 'tenant-list', loadComponent: () => import('./pages/tenant-list/tenant-list').then(m => m.TenantList) },
       { path: 'country', loadComponent: () => import('./pages/country/country').then(m => m.Country) },
       { path: 'governarate', loadComponent: () => import('./pages/governarate/governarate').then(m => m.Governarate) },
       { path: 'city', loadComponent: () => import('./pages/city/city').then(m => m.City) },
@@ -36,7 +39,6 @@ export const routes: Routes = [
       { path: 'add-property',component: AddProperty },
       { path: 'add-property/:id', component: AddProperty },
       { path: 'property-view/:id',component: PropertyView }
-
     ]
   },
 

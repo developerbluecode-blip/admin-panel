@@ -38,7 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     <div class="dialog-header">
       <mat-icon>public</mat-icon>
       <h2 mat-dialog-title>
-  {{ propertyContractId ? 'Edit Property Contract' : 'Add Property Contract' }}
+  {{ imageId ? 'Edit Property Image' : 'Add Property Image' }}
 </h2>
 
     </div>
@@ -48,51 +48,23 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
       <div class="row">
         <div class="col-sm-12 mb-3" style="display: none;">
-          <mat-label>propertyId</mat-label>
+          <mat-label>imageId</mat-label>
           <input
             matInput
-            [(ngModel)]="propertyId"
+            [(ngModel)]="imageId"
             class="form-control"
             placeholder="property Id"
             required>
         </div>
-        <div class="col-sm-12 mb-3">
-          <mat-label>startDate</mat-label>
-          <input type="date"
-            matInput
-            [(ngModel)]="startDate"
-            class="form-control"
-            placeholder="Enter Start Date"
-            required>
-        </div>
-        <div class="col-sm-12 mb-3">
-          <mat-label>endDate</mat-label>
+
+        <div class="col-sm-12 mb-3" [hidden]="imageId">
+          <mat-label>Upload Image</mat-label>
           <input
-           type="date"
-            matInput
-            [(ngModel)]="endDate"
+            type="file"
             class="form-control"
-            placeholder="Enter End Date"
-            required>
+            (change)="onFileSelected($event)">
         </div>
-        <div class="col-sm-12 mb-3">
-          <mat-label>Commision</mat-label>
-          <input
-            matInput
-            [(ngModel)]="commision"
-            class="form-control"
-            placeholder="commision"
-            required>
-        </div>
-        <div class="col-sm-12 mb-3">
-          <mat-label>updatedBy</mat-label>
-          <input
-            matInput
-            [(ngModel)]="updatedBy"
-            class="form-control"
-            placeholder="updatedBy"
-            required>
-        </div>
+       
         <div class="col-sm-12 mb-3">
           <mat-label>createdBy</mat-label>
           <input
@@ -145,19 +117,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     }
   `]
 })
-export class AddPropertyContractDialog {
+export class AddPropertyImageDialog {
 
-  propertyContractId = 0;
+  imageId = 0;
   propertyId = 0;
-  startDate!: Date;
-  endDate!: Date;
-  commision=0;
-  updatedBy=0;
+  //imageName= '';
   createdBy=0;
   status = false;
+  selectedFile?: File;
 
   constructor(
-    private dialogRef: MatDialogRef<AddPropertyContractDialog>,
+    private dialogRef: MatDialogRef<AddPropertyImageDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private propertyService: PropertyDetailsService,
     private cdr: ChangeDetectorRef,
@@ -165,15 +135,16 @@ export class AddPropertyContractDialog {
   ) {
 
     if (data) {
-      this.propertyContractId = data.propertyContractId ?? 0;
+      this.imageId = data.imageId ?? 0;
     this.propertyId = data.propertyId ?? 2;
-    this.startDate = data.startDate;
-    this.endDate = data.endDate;
-    this.commision = data.commision;
-    this.updatedBy = 0;
+    //this.imageName = data.imageName;
     this.createdBy = 0;
     this.status = data.isActive ?? false;
     }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
  
@@ -181,23 +152,23 @@ export class AddPropertyContractDialog {
   save() {
     const formData = new FormData();
 
-    formData.append('propertyContractId', this.propertyContractId.toString());
+    formData.append('imageId', this.imageId.toString());
     formData.append('propertyId', this.propertyId.toString());
-    formData.append('startDate', this.startDate.toString());
-    formData.append('endDate', this.endDate.toString());
-    formData.append('commision', this.commision.toString());
-    formData.append('updatedBy', this.updatedBy.toString());
+    //formData.append('imageName', this.imageName.toString());
     formData.append('createdBy', this.createdBy.toString());
     formData.append('IsActive', this.status.toString());
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile);
+    }
 
-    const request$ = this.propertyContractId
-      ? this.propertyService.updateContract(formData)
-      : this.propertyService.createContract(formData);
+    const request$ = this.imageId
+      ? this.propertyService.updatePropertyImage(formData)
+      : this.propertyService.createPropertyImage(formData);
 
     request$.subscribe({
       next: () => {
         this.snackBar.open(
-          `${this.propertyContractId ?'Updated' : 'Added'} successfully`,
+          `${this.imageId ?'Updated' : 'Added'} successfully`,
           'Close',
           {
             duration: 4000,
@@ -231,7 +202,7 @@ export class AddPropertyContractDialog {
 
 
 isEditMode(): boolean {
-  return this.propertyContractId > 0;
+  return this.imageId > 0;
 }
 
 

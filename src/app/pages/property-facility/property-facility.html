@@ -23,23 +23,23 @@
 
                     <table id="example2" class="table table-bordered table-hover " mat-table [dataSource]="dataSource"  >
                  
-                        <ng-container matColumnDef="PropertyFacilityId">
+                        <ng-container matColumnDef="propertyFacilityWithTypeId">
   <th mat-header-cell *matHeaderCellDef>ID</th>
-  <td mat-cell *matCellDef="let row">{{ row.PropertyFacilityId }}</td>
+  <td mat-cell *matCellDef="let row">{{ row.propertyFacilityWithTypeId }}</td>
 </ng-container>
 
 
 
 <!-- Name EN -->
-<ng-container matColumnDef="PropertyFacilityEn">
-  <th mat-header-cell *matHeaderCellDef>Name (EN)</th>
-  <td mat-cell *matCellDef="let row">{{ row.propertyFacilityNameEn }}</td>
+<ng-container matColumnDef="propertyTypeId">
+  <th mat-header-cell *matHeaderCellDef>Property Type</th>
+  <td mat-cell *matCellDef="let row">{{ getProTypeName(row.propertyTypeId) }}</td>
 </ng-container>
 
 <!-- Name AR -->
-<ng-container matColumnDef="PropertyFacilityAr">
-  <th mat-header-cell *matHeaderCellDef>Name (AR)</th>
-  <td mat-cell *matCellDef="let row">{{ row.propertyFacilityNameAr}}</td>
+<ng-container matColumnDef="propertyFacilityTypeId">
+  <th mat-header-cell *matHeaderCellDef>Facility Type</th>
+  <td mat-cell *matCellDef="let row">{{ getfacility(row.propertyFacilityTypeId) }}</td>
 </ng-container>
 
 <!-- Status -->

@@ -8,6 +8,8 @@ import { Property } from '../../models/PropertyDetails';
 import { PropertyImages } from '../../models/PropertyImage';
 import { PropertyContractDoc } from '../../models/PropertyContractDoc';
 import { PropertyContract } from '../../models/PropertyContract';
+import { PropertyFacilityWithType } from '../../models/PropertyFacilityWithType';
+import { PropertyFacilityTypes } from '../../models/PropertyFacilityType';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +43,18 @@ export class PropertyDetailsService {
     );
   }
 
+   getFacilityType(propertyId: number): Observable<Result<PropertyFacilityTypes[]>> {
+    return this.http.get<Result<PropertyFacilityTypes[]>>(
+      `${environment.apiBaseUrl}/PropertyFacilityType/PropertyFacilityTypeView?PropertyId=${propertyId}`
+    );
+  }
+
+   getFacilityTypeView(propertyId: number): Observable<Result<PropertyFacilityTypes[]>> {
+    return this.http.get<Result<PropertyFacilityTypes[]>>(
+      `${environment.apiBaseUrl}/PropertyFacilityType/PropertyFacilityTypeView?PropertyId=${propertyId}`
+    );
+  }
+
   getPropertyView(propertyId: number): Observable<Result<Property>> {
     return this.http.get<Result<Property>>(
       `${environment.apiBaseUrl}/Property/PropertyDetails?PropertyId=${propertyId}`
@@ -61,6 +75,15 @@ export class PropertyDetailsService {
   ): Observable<Result<PropertyImages>> {
     return this.http.post<Result<PropertyImages>>(
       `${environment.apiBaseUrl}/Property/AddPropertyImages`,
+      formData
+    );
+  }
+
+   updatePropertyImage(
+    formData: FormData
+  ): Observable<Result<PropertyImages>> {
+    return this.http.put<Result<PropertyImages>>(
+      `${environment.apiBaseUrl}/Property/PropertyImageStatus`,
       formData
     );
   }

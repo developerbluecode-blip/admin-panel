@@ -1,4 +1,4 @@
-import { Component, InjectionToken } from '@angular/core';
+import { AfterViewInit, Component, InjectionToken, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,6 +16,10 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Countrys } from '../../models/Country';
 import { CountryService } from '../country/country.service';
+import { PropertyFacilityTypes } from '../../models/PropertyFacilityType';
+import { PropertyTypeService } from '../property-type/property-type.spec';
+import { PropertyFacilityTypeService } from '../property-facility-type/property-facility-type.spec';
+import { PropertyTypes } from '../../models/PropertyType';
 
 
 @Component({
@@ -38,7 +42,7 @@ import { CountryService } from '../country/country.service';
     <div class="dialog-header">
       <mat-icon>public</mat-icon>
       <h2 mat-dialog-title>
-  {{ PropertyFacilityId ? 'Edit PropertyFacility' : 'Add PropertyFacility' }}
+  {{ propertyFacilityWithTypeId ? 'Edit PropertyFacility' : 'Add PropertyFacility' }}
 </h2>
 
     </div>
@@ -50,15 +54,15 @@ import { CountryService } from '../country/country.service';
         <!-- Name -->
         
         <div class="col-sm-12 mb-3">
-  <label class="form-label fw-bold">Property</label>
+  <label class="form-label fw-bold">Property Type</label>
 
   <ng-select
     class="mb-3"
-    [items]="properties"
-    bindLabel="countryNameEn"
-    bindValue="propertyId"
-    [(ngModel)]="propertyId"
-    placeholder="Select Property"
+    [items]="propertiesType"
+    bindLabel="propertyTypeNameEn"
+    bindValue="propertyTypeId"
+    [(ngModel)]="propertyTypeId"
+    placeholder="Select Property Type"
     [searchable]="true"
     [clearable]="true"
     required>
@@ -71,7 +75,7 @@ import { CountryService } from '../country/country.service';
 <ng-select
     class="mb-3"
     [items]="propertyFacilityType"
-    bindLabel="countryNameEn"
+    bindLabel="propertyFacilityNameEn"
     bindValue="propertyFacilityTypeId"
     [(ngModel)]="propertyFacilityTypeId"
     placeholder="Select Property Facility Type"
@@ -124,10 +128,10 @@ import { CountryService } from '../country/country.service';
     }
   `]
 })
-export class AddPropertyFacilityDialog {
+export class AddPropertyFacilityDialog  implements OnInit, AfterViewInit {
 
-  PropertyFacilityId = 0;
-  propertyId = 0;
+  propertyFacilityWithTypeId = 0;
+  propertyTypeId = 0;
   propertyFacilityTypeId = 0;
   status = true;
 
@@ -137,14 +141,22 @@ export class AddPropertyFacilityDialog {
     private PropertyFacilityService: PropertyFacilityService,
     private cdr: ChangeDetectorRef,
     private snackBar: MatSnackBar,
-        private countryService: CountryService
+        private countryService: CountryService,
+    private  propertyTypeService: PropertyTypeService,
+    private propertyFacilityTypeService: PropertyFacilityTypeService
   ) {
     if (data) {
-      this.PropertyFacilityId = data.PropertyFacilityId;
-    this.propertyId = data.propertyFacilityNameEn;
-    this.propertyFacilityTypeId = data.propertyFacilityNameAr;
+      this.propertyFacilityWithTypeId = data.propertyFacilityWithTypeId;
+    this.propertyTypeId = data.propertyTypeId;
+    this.propertyFacilityTypeId = data.propertyFacilityTypeId;
     this.status = data.isActive;
     }
+  }
+
+ 
+   ngAfterViewInit() {
+    this.loadProperties();
+    this.loadPropertyFacilityType();
   }
 
  
@@ -152,19 +164,19 @@ export class AddPropertyFacilityDialog {
   save() {
     const formData = new FormData();
 
-    formData.append('PropertyFacilityId', this.PropertyFacilityId.toString());
-    formData.append('propertyId', this.propertyId.toString());
-    formData.append('propertyFacilityTypeId', this.propertyFacilityTypeId.toString());
+    formData.append('PropertyFacilityWithTypeId', this.propertyFacilityWithTypeId.toString());
+    formData.append('PropertyTypeId', this.propertyTypeId.toString());
+    formData.append('PropertyFacilityTypeId', this.propertyFacilityTypeId.toString());
     formData.append('IsActive', this.status.toString());
 
-    const request$ = this.PropertyFacilityId
+    const request$ = this.propertyFacilityWithTypeId
       ? this.PropertyFacilityService.updatePropertyFacility(formData)
       : this.PropertyFacilityService.createPropertyFacility(formData);
 
     request$.subscribe({
       next: () => {
         this.snackBar.open(
-          `${this.PropertyFacilityId ?'Updated' : 'Added'} successfully`,
+          `${this.propertyFacilityWithTypeId ?'Updated' : 'Added'} successfully`,
           'Close',
           {
             duration: 4000,
@@ -200,12 +212,19 @@ export class AddPropertyFacilityDialog {
   this.loadPropertyFacilityType();
 }
 
+getAllFacilityByType: any[]=[];
+test(){
+   this.PropertyFacilityService.getPropertyFacilitys().subscribe({
+      next: res => this.getAllFacilityByType = res.data.filter(s=>s.propertyTypeId == this.propertyTypeId),
+      error: err => console.error('Failed to load property Facility types', err)
+    });
+}
 
-properties: Countrys[] = [];
+propertiesType: PropertyTypes[] = [];
 loadProperties() {
-  this.countryService.getCountries().subscribe({
+  this.propertyTypeService.getPropertyTypes().subscribe({
     next: (res) => {
-      this.properties = res.data.filter(c => c.isActive);
+      this.propertiesType = res.data.filter(c => c.isActive);
     },
     error: () => {
       this.snackBar.open('Failed to load countries', 'Close', {
@@ -215,9 +234,9 @@ loadProperties() {
   });
 } 
 
-propertyFacilityType: Countrys[] = [];
+propertyFacilityType: PropertyFacilityTypes[] = [];
 loadPropertyFacilityType() {
-  this.countryService.getCountries().subscribe({
+  this.propertyFacilityTypeService.getPropertyFacilityTypes().subscribe({
     next: (res) => {
       this.propertyFacilityType = res.data.filter(c => c.isActive);
     },

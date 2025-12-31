@@ -16,6 +16,9 @@ import { MatInputModule } from '@angular/material/input';
 import { PropertyFacilitys } from '../../models/PropertyFacility';
 import { PropertyFacilityService } from './property-facility.spec';
 import { AddPropertyFacilityDialog } from './add-property-facility-dailog';
+import { PropertyTypeService } from '../property-type/property-type.spec';
+import { PropertyFacilityTypeService } from '../property-facility-type/property-facility-type.spec';
+import { PropertyFacilityWithType } from '../../models/PropertyFacilityWithType';
 
 @Component({
   selector: 'app-property-facility',
@@ -36,25 +39,29 @@ export class PropertyFacility
   implements OnInit, AfterViewInit {
 
   displayedColumns = [
-    'PropertyFacilityId',
-    'PropertyFacilityEn',
-    'PropertyFacilityAr',
+    'propertyFacilityWithTypeId',
+    'propertyTypeId',
+    'propertyFacilityTypeId',
     'isActive',
     'actions'
   ];
 
-  dataSource = new MatTableDataSource<PropertyFacilitys>();
+  dataSource = new MatTableDataSource<PropertyFacilityWithType>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
-    private PropertyFacilityService: PropertyFacilityService
+    private PropertyFacilityService: PropertyFacilityService,
+    private  propertyTypeService: PropertyTypeService,
+        private propertyFacilityTypeService: PropertyFacilityTypeService
   ) {}
 
   ngOnInit() {
     this.loadPropertyFacilitys();
+    this.loadUserType();
+    this.loadfacility();
   }
 
   ngAfterViewInit() {
@@ -77,7 +84,7 @@ export class PropertyFacility
 
   openAddPropertyFacility() {
     const dialogRef = this.dialog.open(AddPropertyFacilityDialog, {
-      width: '500px',
+      width: '700px',
       disableClose: true
     });
 
@@ -88,7 +95,7 @@ export class PropertyFacility
 
   openEditPropertyFacility(row: PropertyFacilitys) {
     const dialogRef = this.dialog.open(AddPropertyFacilityDialog, {
-      width: '500px',
+      width: '700px',
       disableClose: true,
       data: row
     });
@@ -97,4 +104,46 @@ export class PropertyFacility
       if (ok) this.loadPropertyFacilitys();
     });
   }
+
+  proTypeMap = new Map<number, string>();
+
+loadUserType() {
+  this.propertyTypeService.getPropertyTypes().subscribe(res => {
+    this.proTypeMap.clear();
+
+    res.data.forEach(c => {
+      this.proTypeMap.set(
+        c.propertyTypeId,
+        c.propertyTypeNameEn ?? '-'
+      );
+    });
+  });
+}
+
+
+getProTypeName(propertyTypeId: number | null): string {
+  if (!propertyTypeId) return '-';
+  return this.proTypeMap.get(propertyTypeId) ?? '-';
+}
+
+proTfacility = new Map<number, string>();
+
+loadfacility() {
+  this.propertyFacilityTypeService.getPropertyFacilityTypes().subscribe(res => {
+    this.proTfacility.clear();
+
+    res.data.forEach(c => {
+      this.proTfacility.set(
+        c.propertyFacilityTypeId,
+        c.propertyFacilityNameEn ?? '-'
+      );
+    });
+  });
+}
+
+
+getfacility(propertyFacilityTypeId: number | null): string {
+  if (!propertyFacilityTypeId) return '-';
+  return this.proTfacility.get(propertyFacilityTypeId) ?? '-';
+}
 }
