@@ -6,6 +6,7 @@ import { environment } from '../../../environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Result } from '../../models/Result';
+import { UserTypes } from '../../models/userType';
 
 
 @Injectable({
@@ -17,16 +18,16 @@ export class UserTypeService {
 
   constructor(private http: HttpClient) {}
 
-getUserTypes(): Observable<Result<UserType[]>> {
-  return this.http.get<Result<UserType[]>>(this.apiUrl);
+getUserTypes(): Observable<Result<UserTypes[]>> {
+  return this.http.get<Result<UserTypes[]>>(this.apiUrl);
 }
 
-createUserType(formData: FormData): Observable<Result<UserType>> {
-     return this.http.post<Result<UserType>>(`${environment.apiBaseUrl}/UserType/CreateUserType`, formData);
+createUserType(formData: FormData): Observable<Result<UserTypes>> {
+     return this.http.post<Result<UserTypes>>(`${environment.apiBaseUrl}/UserType/CreateUserType`, formData);
   }
 
   updateUserType(formData: FormData) {
-  return this.http.put<Result<UserType>>(`${environment.apiBaseUrl}/UserType/UpdateUserType`, formData);
+  return this.http.put<Result<UserTypes>>(`${environment.apiBaseUrl}/UserType/UpdateUserType`, formData);
 }
 
 

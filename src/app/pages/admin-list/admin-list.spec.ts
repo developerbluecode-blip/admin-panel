@@ -29,6 +29,12 @@ createAdminList(formData: FormData): Observable<Result<AllUsers>> {
   return this.http.put<Result<AllUsers>>(`${environment.apiBaseUrl}/UserDetails/UpdateUserDetail`, formData);
 }
 
+getUserDetails(UserDetailId: number): Observable<Result<AllUsers>> {
+    return this.http.get<Result<AllUsers>>(
+      `${environment.apiBaseUrl}/UserDetails/UserDetailDetails?UserDetailId=${UserDetailId}`
+    );
+  }
+
 
 deleteAdminList(id: number) {
   return this.http.delete<Result<boolean>>(

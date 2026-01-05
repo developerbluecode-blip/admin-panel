@@ -31,7 +31,7 @@ import { AddUserTypeDialog } from './add-userType-dialog';
 export class UserType implements OnInit {
 
   displayedColumns = ['userTypeId', 'userTypeEn', 'userTypeAr', 'isActive', 'actions'];
-  dataSource = new MatTableDataSource<UserType>();
+  dataSource = new MatTableDataSource<UserTypes>();
 
   @ViewChild(MatPaginator, { static: false })
   paginator!: MatPaginator;

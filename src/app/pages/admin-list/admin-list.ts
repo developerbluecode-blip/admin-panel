@@ -26,7 +26,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AdminList {
 
-  displayedColumns = ['PaymentModeId', 'PaymentModeEn', 'PaymentModeAr', 'isActive', 'actions'];
+  displayedColumns = ['userId', 'fullNameEn', 'mobileNumber','emailAddress', 'isActive', 'actions'];
   dataSource = new MatTableDataSource<AllUsers>();
 
   @ViewChild(MatPaginator, { static: false })

@@ -20,5 +20,19 @@ export class SidebarComponent {
   isActive(path: string): boolean {
     return this.router.url.startsWith(path);
   }
+
+  openAddUser() {
+  this.router.navigate(['/admin-list/add-user']);
+}
+
+  openEditUser(id?: number) {
+  if (id) {
+    // Edit
+    this.router.navigate(['/admin-list/add-user', id]);
+  } else {
+    // Add
+    this.router.navigate(['/admin-list/add-user']);
+  }
+}
 }
 

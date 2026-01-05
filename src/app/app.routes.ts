@@ -5,6 +5,8 @@ import { LoginComponent } from './pages/login/login';
 import { authGuard } from './core/guards/auth-guard';
 import { AddProperty } from './pages/property-details/add-property-details';
 import { PropertyView } from './pages/property-details/property-view';
+import { AdminList } from './pages/admin-list/admin-list';
+import { AddUser } from './pages/admin-list/add-user';
 
 export const routes: Routes = [
 
@@ -38,7 +40,9 @@ export const routes: Routes = [
       { path: 'property-facility', loadComponent: () => import('./pages/property-facility/property-facility').then(m => m.PropertyFacility) },
       { path: 'add-property',component: AddProperty },
       { path: 'add-property/:id', component: AddProperty },
-      { path: 'property-view/:id',component: PropertyView }
+      { path: 'property-view/:id',component: PropertyView },
+      { path: 'add-user', component: AddUser },
+      { path: 'add-user/:id', component: AddUser }
     ]
   },
 

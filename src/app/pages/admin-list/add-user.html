@@ -1,0 +1,140 @@
+<section class="content pt-3">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ isEditMode ? 'Edit User' : 'Add User' }}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                     <div class="container">
+<div class="row">
+                    
+                    <!-- form start -->
+                   <form *ngIf="form" [formGroup]="form" class="row g-3" (ngSubmit)="onSave()">
+
+  <!-- User Name EN -->
+  <div class="col-md-6">
+    <label class="form-label">User Name (EN)</label>
+    <input type="text" class="form-control" formControlName="fullNameEn" placeholder="User Name (EN)" required>
+  </div>
+
+  <!-- User Name AR -->
+  <div class="col-md-6" align="right">
+    <label class="form-label">User Name (AR)</label>
+    <input type="text" class="form-control" formControlName="fullNameAr"  placeholder="User Name (AR)" dir="rtl" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">User Type</label>
+    <ng-select
+  formControlName="userTypeId"
+  [items]="userTypes"
+  bindLabel="userTypeEn"
+  bindValue="userTypeId"
+  placeholder="Select User Type">
+</ng-select>
+
+  </div>
+
+
+  <div class="col-md-6">
+    <label class="form-label">Mobile Number</label>
+    <input type="text" class="form-control" formControlName="mobileNumber"  placeholder="Mobile Number" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Email Address</label>
+    <input type="text" class="form-control" formControlName="emailAddress"  placeholder="Email Address" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Password</label>
+    <input type="number" class="form-control" formControlName="userPassword"  placeholder="Password" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">CivilId</label>
+    <input type="text" class="form-control" formControlName="civilId"  placeholder="CivilId" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Gender</label>
+    <ng-select
+  formControlName="gender"
+  [items]="genders"
+  bindLabel="genderNameEn"
+  bindValue="genderId"
+  placeholder="Select Gender">
+</ng-select>
+
+  </div>
+
+  <div class="col-md-6">
+  <label class="form-label">Address En</label>
+  <textarea
+    class="form-control"
+    formControlName="userAddressEn"
+    rows="4"
+    placeholder="Enter full User Address En">
+  </textarea>
+</div>
+<div class="col-md-6">
+  <label class="form-label">Address Ar</label>
+  <textarea
+    class="form-control"
+    formControlName="userAddressAr"
+    rows="4"
+    placeholder="Enter full User Address Ar">
+  </textarea>
+</div>
+
+
+  <div class="col-12">
+  <label class="form-label">Note</label>
+  <textarea
+    class="form-control"
+    formControlName="note"
+    rows="4"
+    placeholder="Enter full note description">
+  </textarea>
+</div>
+
+ <div class="col-sm-4 mt-2">
+          <mat-slide-toggle formControlName="isActive">
+            Active
+          </mat-slide-toggle>
+        </div>
+         <div class="col-sm-4 mt-2">
+          <mat-slide-toggle formControlName="isBlock">
+            Block
+          </mat-slide-toggle>
+        </div>
+        <div  class="col-sm-4 mt-2" >
+            <input type="file" class="form-control" >
+        </div>
+ 
+  <div class="p-2" align="right">
+    <button type="button" class="btn btn-danger me-2" [routerLink]="['/admin-list']">
+      Cancel
+    </button>
+
+    <button type="submit" class="btn btn-primary">
+      {{ isEditMode ? 'Update' : 'Save' }}
+    </button>
+                </div>
+                </form>
+
+ </div></div>
+
+                </div>
+                <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

@@ -11,28 +11,36 @@ import { AuthService } from '../../../core/services/auth';
   standalone: true,
   imports: [CommonModule]
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
+
 
   private platformId = inject(PLATFORM_ID);
-  
 
-   userlog: any;
 
-  constructor(private auth: AuthService) {}
+  userlog: any;
 
+  constructor(private auth: AuthService) { }
+  Name: string = '';
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // this.auth.user$.subscribe(u => {
-      //   this.userlog = u;
-      // });
-    }}
+      const UserId = localStorage.getItem('UserId');
+      if (UserId) {
+        const Email = localStorage.getItem('Email');
+        this.Name = localStorage.getItem('Name') ?? '';
 
-  
- 
-  logout() {
-     this.auth.logout();
+      }
+    }
   }
 
+
+
+ logout() {
+    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  }
+  
   isUserDropdownOpen = false;
 
   toggleUserDropdown() {

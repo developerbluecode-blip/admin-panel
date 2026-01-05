@@ -51,6 +51,14 @@
   <!-- SUB MENU -->
   <ul class="nav nav-treeview" *ngIf="openMenu === 'dashboard'">
     <li class="nav-item">
+  <a (click)="openAddUser()" class="nav-link">
+    <i class="nav-icon bi bi-circle"></i>
+    <p>Add User</p>
+  </a>
+</li>
+    
+
+    <li class="nav-item">
       <a
         routerLink="/admin-list"
         class="nav-link"

@@ -1,6 +1,6 @@
 export interface LoginResponse {
   token: string,
-    user: {
+    data: {
         userId: 1,
         fullNameEn: string,
         fullNameAr: string,
